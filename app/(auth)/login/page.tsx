@@ -11,7 +11,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { toast } from "sonner";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -23,11 +23,13 @@ interface ResponseJsonData {
 
 const LoginPage = () => {
 
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
   const onFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const toastId = toast.loading("Account is being created...");
+    setIsLoading(true)
     const formData = new FormData(event.currentTarget);
     try {
       const res = await fetch("/api/login", {
@@ -44,12 +46,13 @@ const LoginPage = () => {
           id: toastId,
         });
       }
-      router.refresh();
+      setIsLoading(false)
       router.push('/')
     } catch (err) {
       toast.error(err as string, {
         id: toastId,
       });
+      setIsLoading(false)
     }
   };
   return (
@@ -90,7 +93,7 @@ const LoginPage = () => {
                 register
               </Link>
             </p>
-            <Button type="submit" className="w-full font-semibold">
+            <Button type="submit" className="w-full font-semibold" disabled={isLoading}>
               Sign In
             </Button>
           </CardFooter>

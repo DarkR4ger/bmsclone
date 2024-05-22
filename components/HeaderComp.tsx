@@ -16,19 +16,32 @@ import {
 import { LogOut, User } from "lucide-react";
 import { logout } from "@/lib/logout";
 import { delUser } from "@/redux/userSlice";
+import { UserData } from "./DashboardPage";
+import { useEffect, useState } from "react";
+import { getDataFromHeader } from "@/lib/headerdData";
 
 const HeaderComp = () => {
-  const user = useAppSelector((state) => state.user);
   const router = useRouter();
   const dispatch = useAppDispatch();
-
+  const [user, setUser] = useState<UserData>()
+  const pathname = usePathname();
   const handleLogOut = async () => {
     await logout();
     dispatch(delUser());
     router.push("/login");
   };
 
-  const pathname = usePathname();
+  useEffect(() => {
+    async function getData () {
+      if(pathname === '/' || pathname === '/profile' || pathname === '/admin' ){
+        const data = await getDataFromHeader(); 
+        setUser(data)
+      }
+    }
+    getData();
+
+  },[pathname])
+
   return (
     <nav className="container shadow-xl py-4 flex items-center justify-between">
       <div>
@@ -45,9 +58,9 @@ const HeaderComp = () => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Avatar
-                className={`${buttonVariants({ variant: "outline" })} cursor-pointer rounded-full`}
+                className={`cursor-pointer rounded-full ring-2 ring-primary`}
               >
-                <AvatarFallback>{user.username[0]}</AvatarFallback>
+                <AvatarFallback>{user?.username[0]}</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
@@ -56,7 +69,7 @@ const HeaderComp = () => {
               <DropdownMenuGroup>
                 <DropdownMenuItem>
                   <Link
-                    href={`${user.isAdmin ? "/admin" : "/profile"}`}
+                    href={`${user?.isAdmin ? "/admin" : "/profile"}`}
                     className="flex items-center"
                   >
                     <User className="size-4 mr-2" />

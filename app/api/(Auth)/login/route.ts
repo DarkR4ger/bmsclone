@@ -1,7 +1,6 @@
 import prisma from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { sign } from "@/lib/auth";
 
@@ -44,11 +43,6 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      // const token = jwt.sign(
-      //   { userId: user.id, emailId: user.email },
-      //   SECRET_KEY,
-      //   { expiresIn: "1d" },
-      // );
       const token = await sign({userId: user.id, emailId: user.email}, SECRET_KEY)
 
       cookies().set("token", token);

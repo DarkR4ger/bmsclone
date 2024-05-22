@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useAppDispatch } from "@/lib/reduxhook";
 import { setUser } from "@/redux/userSlice";
 
-interface UserData {
+export interface UserData {
   id: string;
   username: string;
   email: string;
