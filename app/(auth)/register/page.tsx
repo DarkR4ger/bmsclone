@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import {
   Card,
   CardHeader,
@@ -14,6 +14,9 @@ import { Button } from "@/components/ui/button";
 import { FormEvent } from "react";
 import { toast } from "sonner";
 import Link from "next/link";
+import { Loader2 } from "lucide-react";
+import { useAppSelector, useAppDispatch } from "@/lib/reduxhook";
+import { setLoading } from "@/redux/loadingSlice";
 
 interface ResponseJsonData {
   success: boolean;
@@ -21,32 +24,34 @@ interface ResponseJsonData {
 }
 
 const RegisterPage = () => {
+  const isLoading = useAppSelector((state) => state.loading);
+  const dispatchLoading = useAppDispatch();
   const onFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const toastId = toast.loading("Account is being created...")
+    const toastId = toast.loading("Account is being created...");
+    dispatchLoading(setLoading(true));
     const formData = new FormData(event.currentTarget);
     try {
       const res = await fetch("/api/register", {
-        method: 'POST',
-        body: formData 
-      })
+        method: "POST",
+        body: formData,
+      });
       const data: ResponseJsonData = await res.json();
-      if(data.success){
+      if (data.success) {
         toast.success(data.message, {
-          id: toastId
-        })
-      }
-      else{
+          id: toastId,
+        });
+      } else {
         toast.error(data.message, {
-          id: toastId
-        })
+          id: toastId,
+        });
       }
-
-    }
-    catch (err) {
+      dispatchLoading(setLoading(false));
+    } catch (err) {
       toast.error(err as string, {
-        id: toastId
-      })
+        id: toastId,
+      });
+      dispatchLoading(setLoading(false));
     }
   };
   return (
@@ -77,7 +82,6 @@ const RegisterPage = () => {
                 type="email"
                 placeholder="Enter your email..."
                 required
-
               />
             </div>
 
@@ -87,15 +91,33 @@ const RegisterPage = () => {
                 id="password"
                 name="password"
                 type="password"
-                placeholder="Enter your password..." 
+                placeholder="Enter your password..."
                 required
               />
             </div>
           </CardContent>
           <CardFooter className="grid items-center gap-y-4">
-            <p className="text-center">Already have an account&#63; Please <Link className="text-blue-600" href="/login">login</Link></p>
-            <Button type="submit" className="w-full font-semibold">
-              Sign Up
+            <p className="text-center">
+              Already have an account&#63; Please{" "}
+              <Link className="text-blue-600" href="/login">
+                login
+              </Link>
+            </p>
+            <Button
+              type="submit"
+              className="w-full font-semibold"
+              disabled={isLoading.loading}
+            >
+              {isLoading.loading ? (
+                <p className="flex items-center gap-x-4">
+                  Sign Up{" "}
+                  <span className="animate-spin inline-flex">
+                    <Loader2 />
+                  </span>
+                </p>
+              ) : (
+                <p>Sign Up</p>
+              )}
             </Button>
           </CardFooter>
         </form>

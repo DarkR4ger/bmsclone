@@ -13,7 +13,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "./ui/dropdown-menu";
-import { LogOut, User } from "lucide-react";
+import { Loader2, LogOut, User } from "lucide-react";
 import { logout } from "@/lib/logout";
 import { delUser } from "@/redux/userSlice";
 import { UserData } from "./DashboardPage";
@@ -23,7 +23,7 @@ import { getDataFromHeader } from "@/lib/headerdData";
 const HeaderComp = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const [user, setUser] = useState<UserData>()
+  const [user, setUser] = useState<UserData>();
   const pathname = usePathname();
   const handleLogOut = async () => {
     await logout();
@@ -32,15 +32,18 @@ const HeaderComp = () => {
   };
 
   useEffect(() => {
-    async function getData () {
-      if(pathname === '/' || pathname === '/profile' || pathname === '/admin' ){
-        const data = await getDataFromHeader(); 
-        setUser(data)
+    async function getData() {
+      if (
+        pathname === "/" ||
+        pathname === "/profile" ||
+        pathname === "/admin"
+      ) {
+        const data = await getDataFromHeader();
+        setUser(data);
       }
     }
     getData();
-
-  },[pathname])
+  }, [pathname]);
 
   return (
     <nav className="container shadow-xl py-4 flex items-center justify-between">
@@ -57,11 +60,17 @@ const HeaderComp = () => {
         pathname === "/admin" ? (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Avatar
-                className={`cursor-pointer rounded-full ring-2 ring-primary`}
-              >
-                <AvatarFallback>{user?.username[0]}</AvatarFallback>
-              </Avatar>
+                <Avatar
+                  className={`cursor-pointer rounded-full ring-2 ring-primary`}
+                >
+                  {!user ?  (
+                  <AvatarFallback><Loader2 className="animate-spin" /></AvatarFallback>
+                  ): 
+                    (
+                  <AvatarFallback>{user.username[0]}</AvatarFallback>
+                    )
+                  }
+                </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -73,7 +82,7 @@ const HeaderComp = () => {
                     className="flex items-center"
                   >
                     <User className="size-4 mr-2" />
-                    <p>Profile</p>
+                    <p>{user?.isAdmin ? 'Admin' : 'Profile'}</p>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleLogOut}>

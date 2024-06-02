@@ -24,11 +24,16 @@ export async function middleware(req: NextRequest) {
     });
   } else if (pathname.startsWith("/admin")) {
     if (res.success && res.data?.isAdmin) {
-      return NextResponse.next();
+      return NextResponse.next({
+        request: {
+          headers: newHeaders,
+        },
+      });
     } else if (res.success) {
       return NextResponse.redirect(new URL("/", origin));
+    } else {
+      return NextResponse.redirect(new URL("/login", origin));
     }
-    return NextResponse.redirect(new URL("/login", origin));
   } else if (pathname === "/login" || pathname === "/register") {
     if (res.success) {
       return NextResponse.redirect(new URL("/", origin));
