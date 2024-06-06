@@ -1,5 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import MoviesLists from "./MoviesLists";
+import MoviesLists from "@/components/AdminPage/Movies/MoviesLists";
 
 const Admin = async () => {
   return (

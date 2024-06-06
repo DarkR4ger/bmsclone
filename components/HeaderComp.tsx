@@ -15,7 +15,7 @@ import {
 } from "./ui/dropdown-menu";
 import { Loader2, LogOut, User } from "lucide-react";
 import { logout } from "@/lib/logout";
-import { delUser } from "@/redux/userSlice";
+import { delUser, setUser } from "@/redux/userSlice";
 import { UserData } from "./DashboardPage";
 import { useEffect, useState } from "react";
 import { getDataFromHeader } from "@/lib/headerdData";
@@ -23,27 +23,27 @@ import { getDataFromHeader } from "@/lib/headerdData";
 const HeaderComp = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const [user, setUser] = useState<UserData>();
+  const [user, setUserDetails] = useState<UserData>();
   const pathname = usePathname();
   const handleLogOut = async () => {
     await logout();
-    dispatch(delUser());
-    router.push("/login");
+    dispatch(delUser()); router.push("/login");
   };
 
   useEffect(() => {
     async function getData() {
       if (
-        pathname === "/" ||
-        pathname === "/profile" ||
-        pathname === "/admin"
+        pathname.startsWith("/") ||
+        pathname.startsWith("/profile") ||
+        pathname.startsWith("/admin")
       ) {
         const data = await getDataFromHeader();
-        setUser(data);
+        setUserDetails(data);
+        dispatch(setUser(data))
       }
     }
     getData();
-  }, [pathname]);
+  },[pathname]);
 
   return (
     <nav className="container shadow-xl py-4 flex items-center justify-between">

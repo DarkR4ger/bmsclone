@@ -23,8 +23,7 @@ export async function POST(req: NextRequest) {
         email: data.email,
       },
     });
-    if (!user) {
-      NextResponse.json(
+    if (!user) { return NextResponse.json(
         {
           success: false,
           message: "User does not exists, please register",
@@ -34,7 +33,7 @@ export async function POST(req: NextRequest) {
     } else {
       const check = await bcrypt.compare(data.password, user.password);
       if (!check) {
-        NextResponse.json(
+        return NextResponse.json(
           {
             success: false,
             message: "User credentials does not match with database",
