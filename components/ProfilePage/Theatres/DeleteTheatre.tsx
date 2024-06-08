@@ -1,6 +1,7 @@
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -28,7 +29,9 @@ export default function DeleteTheatres({id} : {id: string}) {
           <DialogHeader>
             <DialogTitle>Delete</DialogTitle>
           </DialogHeader>
-          <p>Are you sure want to delete?</p>
+          <DialogDescription>
+          Are you sure want to delete?
+          </DialogDescription>
           <DialogFooter>
             <FormSubmit />
           </DialogFooter>

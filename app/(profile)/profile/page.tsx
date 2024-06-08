@@ -1,7 +1,9 @@
 import TheatreLists from "@/components/ProfilePage/Theatres/TheatreLists";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { getDataFromHeader } from "@/lib/headerdData";
 
-const Profile = () => {
+const Profile = async() => {
+  const user = await getDataFromHeader();
   return (
     <section>
       <div>Hello profile page</div>
@@ -14,7 +16,7 @@ const Profile = () => {
           <TabsContent value="bookings">
           </TabsContent>
           <TabsContent value="apply for theatres">
-            <TheatreLists />
+            <TheatreLists userId={user.id} />
           </TabsContent>
         </Tabs>
       </div>

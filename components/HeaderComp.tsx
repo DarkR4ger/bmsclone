@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { buttonVariants } from "./ui/button";
 import { usePathname, useRouter } from "next/navigation";
-import { useAppSelector, useAppDispatch } from "@/lib/reduxhook";
+import { useAppDispatch } from "@/lib/reduxhook";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import {
   DropdownMenu,
@@ -27,23 +27,24 @@ const HeaderComp = () => {
   const pathname = usePathname();
   const handleLogOut = async () => {
     await logout();
-    dispatch(delUser()); router.push("/login");
+    dispatch(delUser());
+    router.push("/login");
   };
 
   useEffect(() => {
     async function getData() {
       if (
-        pathname.startsWith("/") ||
-        pathname.startsWith("/profile") ||
-        pathname.startsWith("/admin")
+        pathname === "/" ||
+        pathname === "/profile" ||
+        pathname === "/admin"
       ) {
         const data = await getDataFromHeader();
         setUserDetails(data);
-        dispatch(setUser(data))
+        dispatch(setUser(data));
       }
     }
     getData();
-  },[pathname]);
+  }, [pathname]);
 
   return (
     <nav className="container shadow-xl py-4 flex items-center justify-between">
@@ -60,17 +61,17 @@ const HeaderComp = () => {
         pathname === "/admin" ? (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Avatar
-                  className={`cursor-pointer rounded-full ring-2 ring-primary`}
-                >
-                  {!user ?  (
-                  <AvatarFallback><Loader2 className="animate-spin" /></AvatarFallback>
-                  ): 
-                    (
+              <Avatar
+                className={`cursor-pointer rounded-full ring-2 ring-primary`}
+              >
+                {!user ? (
+                  <AvatarFallback>
+                    <Loader2 className="animate-spin" />
+                  </AvatarFallback>
+                ) : (
                   <AvatarFallback>{user.username[0]}</AvatarFallback>
-                    )
-                  }
-                </Avatar>
+                )}
+              </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -82,7 +83,7 @@ const HeaderComp = () => {
                     className="flex items-center"
                   >
                     <User className="size-4 mr-2" />
-                    <p>{user?.isAdmin ? 'Admin' : 'Profile'}</p>
+                    <p>{user?.isAdmin ? "Admin" : "Profile"}</p>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleLogOut}>

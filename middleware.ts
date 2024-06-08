@@ -22,7 +22,7 @@ export async function middleware(req: NextRequest) {
         headers: newHeaders,
       },
     });
-  } else if (pathname.startsWith("/admin")) {
+  } else if (pathname === "/admin") {
     if (res.success && res.data?.isAdmin) {
       return NextResponse.next({
         request: {
@@ -34,7 +34,7 @@ export async function middleware(req: NextRequest) {
     } else {
       return NextResponse.redirect(new URL("/login", origin));
     }
-  } else if (pathname === "/login" || pathname === "/register") {
+  } else if (pathname === "/register" || pathname === "/login") {
     if (res.success) {
       return NextResponse.redirect(new URL("/", origin));
     }

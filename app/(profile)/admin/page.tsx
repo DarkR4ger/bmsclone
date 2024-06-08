@@ -1,5 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import MoviesLists from "@/components/AdminPage/Movies/MoviesLists";
+import AdminTheatreLists from "@/components/AdminPage/Theatres/TheatreLists";
 
 const Admin = async () => {
   return (
@@ -14,7 +15,9 @@ const Admin = async () => {
           <TabsContent value="movies">
             <MoviesLists />
           </TabsContent>
-          <TabsContent value="theaters">Theater tables</TabsContent>
+          <TabsContent value="theaters">
+            <AdminTheatreLists />
+          </TabsContent>
         </Tabs>
       </div>
     </section>

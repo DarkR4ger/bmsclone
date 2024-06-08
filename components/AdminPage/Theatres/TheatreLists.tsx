@@ -9,33 +9,25 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import TheatreDiaglog from "./TheatreDiaglog";
 import prisma from "@/lib/prisma";
 import { cn } from "@/lib/utils";
-import ModifyTheatres from "./ModifyTheatres"; import DeleteTheatres from "./DeleteTheatre";
+import { TheatreDataType } from "@/components/ProfilePage/Theatres/TheatreLists";
+import TheatreAction from "./TheatreAction";
 
-export type TheatreDataType = {
-  id: string;
-  name: string;
-  address: string;
-  phone: number;
-  email: string;
-  isActive: boolean;
-  userId: string;
-};
-
-export default async function TheatreLists({userId}: {
-  userId: string
-}) {
-  const theatreData: TheatreDataType[] = await prisma.theatre.findMany({
+export default async function AdminTheatreLists() {
+  const theatreData: TheatreDataType[] = await prisma.theatre.findMany();
+  const userDetails = await prisma.user.findMany({
     where: {
-      userId: userId 
-    }
+      Theatre: {
+        some: {
+          userId: {},
+        },
+      },
+    },
   });
 
   return (
     <section className="flex flex-col justify-center gap-y-5 mt-5">
-      <TheatreDiaglog />
       <Table>
         <TableCaption>Theatre Lists</TableCaption>
         <TableHeader>
@@ -44,37 +36,36 @@ export default async function TheatreLists({userId}: {
             <TableHead>Address</TableHead>
             <TableHead className="">Phone</TableHead>
             <TableHead className="">Email</TableHead>
+            <TableHead className="">Owner</TableHead>
             <TableHead className="">Status</TableHead>
             <TableHead className="">Action</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {theatreData.map((theatre) => {
+          {theatreData.map((theatre, index) => {
             return (
               <TableRow key={theatre.id} className="md:text-md sm:text-sm">
                 <TableCell className="capitalize">{theatre.name}</TableCell>
                 <TableCell className="capitalize">{theatre.address}</TableCell>
                 <TableCell className="">+91 {theatre.phone}</TableCell>
                 <TableCell className="">{theatre.email}</TableCell>
+                <TableCell className="capitalize">
+                  {userDetails[index].username}
+                </TableCell>
                 <TableCell className="">
                   <p
-                    className={cn(" w-fit px-3 py-1 capitalize rounded-full", 
-                    theatre.isActive ? 'bg-green-300 text-green-900 ' : 'bg-red-300 text-red-900')}
+                    className={cn(
+                      " w-fit px-3 py-1 capitalize rounded-full",
+                      theatre.isActive
+                        ? "bg-green-300 text-green-900 "
+                        : "bg-red-300 text-red-900",
+                    )}
                   >
-                    {theatre.isActive ? 'Accepted' : 'Pending'}
+                    {theatre.isActive ? "Accepted" : "Pending"}
                   </p>
                 </TableCell>
                 <TableCell>
-                  <ModifyTheatres 
-                    id={theatre.id}
-                    name={theatre.name}
-                    address={theatre.address}
-                    phone={theatre.phone}
-                    email={theatre.email}
-                    isActive={theatre.isActive}
-                    userId={theatre.userId}
-                  />
-                  <DeleteTheatres id={theatre.id} />
+                  <TheatreAction isActive={theatre.isActive} theatreId={theatre.id} />
                 </TableCell>
               </TableRow>
             );

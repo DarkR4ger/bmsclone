@@ -83,6 +83,7 @@ const TheatreDiaglog = () => {
               type="tel"
               name="phonenumber"
               placeholder="Enter your phone number..."
+              maxLength={10}
               required
             />
           </div>
