@@ -23,7 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Pencil } from "lucide-react";
 import FormSubmit from "@/components/FormSubmit";
 import { MoviesDataType } from "./MoviesLists";
-import { modifyMovie } from "@/actions/modifyMovie";
+import { modifyMovie } from "@/actions/movies/modifyMovie";
 
 export default function ModifyMovie({
   id,

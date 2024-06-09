@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import FormSubmit from "@/components/FormSubmit";
 import { initialMessage } from "../TheatreDiaglog";
 import { useFormState } from "react-dom";
-import { addShows } from "@/actions/addShows";
+import { addShows } from "@/actions/shows/addShows";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { MoviesDataType } from "@/components/AdminPage/Movies/MoviesLists";

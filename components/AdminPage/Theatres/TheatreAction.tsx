@@ -12,9 +12,9 @@ import {
 import { Button } from "@/components/ui/button";
 import FormSubmit from "@/components/FormSubmit";
 import { Input } from "@/components/ui/input";
-import { approveOrBlockTheatres } from "@/actions/approveOrBlockTheatres";
+import { approveOrBlockTheatres } from "@/actions/theatres/approveOrBlockTheatres";
 import { useFormState } from "react-dom";
-import { FormState } from "@/actions/addTheatre";
+import { FormState } from "@/actions/theatres/addTheatre";
 import { useEffect } from "react";
 import { toast } from "sonner";
 

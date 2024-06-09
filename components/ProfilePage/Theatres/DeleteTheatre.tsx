@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import FormSubmit from "@/components/FormSubmit";
-import { deleteTheatre } from "@/actions/deleteTheatres";
+import { deleteTheatre } from "@/actions/theatres/deleteTheatres";
 
 
 export default function DeleteTheatres({id} : {id: string}) {

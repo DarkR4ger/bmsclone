@@ -13,7 +13,7 @@ export async function middleware(req: NextRequest) {
 
   newHeaders.set("data", data);
 
-  if (pathname === "/" || pathname.startsWith("/profile")) {
+  if (pathname === "/" || pathname.startsWith("/profile") || pathname.startsWith('/movies')) {
     if (!res.success) {
       return NextResponse.redirect(new URL("/login", origin));
     }
@@ -49,6 +49,7 @@ export const config = {
     "/register",
     "/profile",
     "/admin",
+    "/movies",
     "/((?!api|_next/static|_next/image|favicon.ico).*)",
   ],
 };

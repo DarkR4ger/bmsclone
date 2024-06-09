@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import FormSubmit from "@/components/FormSubmit";
-import { FormState, addTheatre } from "@/actions/addTheatre";
+import { FormState, addTheatre } from "@/actions/theatres/addTheatre";
 import { useFormState } from "react-dom";
 import { useEffect } from "react";
 import { toast } from "sonner";

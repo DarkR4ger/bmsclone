@@ -2,7 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { FormState } from "./addTheatre";
+import { FormState } from "../theatres/addTheatre";
 
 export type ShowType = {
   name: string;

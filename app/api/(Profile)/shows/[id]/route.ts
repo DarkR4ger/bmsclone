@@ -1,14 +1,16 @@
-import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { NextRequest, NextResponse } from "next/server";
 
-
-export async function GET(req:NextRequest) {
-  
+export async function GET(req: NextRequest, {params}: {params: {id : string}}){
+  const id = params.id
   try {
     const shows = await prisma.show.findMany({
-      //where: {
-      //  theatreId: id 
-      //}
+      where: {
+        theatreId: id 
+      },
+      include: {
+        movie: true
+      }
     })
 
     if(!shows) {

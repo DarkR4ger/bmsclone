@@ -1,8 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
-import { useAppDispatch } from "@/lib/reduxhook";
-import { setUser } from "@/redux/userSlice";
+import { Search } from "lucide-react";
+import { MoviesDataType } from "./AdminPage/Movies/MoviesLists";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 export interface UserData {
   id: string;
@@ -11,26 +15,47 @@ export interface UserData {
   isAdmin: boolean;
 }
 
-const DashboardPage = ({ id, username, email, isAdmin }: UserData) => {
-  const dispatch = useAppDispatch();
+export type DashboardPropType = {
+  username: string;
+  movies: MoviesDataType[];
+};
 
-  useEffect(() => {
-    const userData = {
-      id: id,
-      username: username,
-      email: email,
-      isAdmin: isAdmin,
-    };
-
-    dispatch(setUser(userData));
-  }, [id, username, email, isAdmin, dispatch]);
-
+const DashboardPage = ({ username, movies }: DashboardPropType) => {
+  const [searchText, setSearchText] = useState("");
   return (
-    <div className="min-h-screen w-full">
-      <div>
-        <h2 className="text-xl md:text-2xl font-semibold">
-          Welcome <span className="text-primary">{username}</span> <span className="">👋</span>
-        </h2>
+    <div className="min-h-screen flex flex-col gap-y-3 w-full">
+      <h2 className="text-xl md:text-2xl font-semibold">
+        Welcome <span className="text-primary">{username}</span>{" "}
+        <span className="">👋</span>
+      </h2>
+      <div className="grid gap-2">
+        <Label className="text-md md:text-xl font-medium " htmlFor="movie">
+          Search for Movies
+        </Label>
+        <div className="flex items-center justify-between">
+          <Input
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            id="movie"
+            type="search"
+            placeholder="Search for movies..."
+          />
+          <Search className="relative right-10 stroke-gray-400" />
+        </div>
+      </div>
+      <h2 className="text-md md:text-xl font-semibold uppercase my-4">Currently showing movies</h2>
+      {/*<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-4">*/}
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl-grid-cols-7">
+        {movies.filter((movie) => movie.title.toLowerCase().includes(searchText.toLowerCase()))
+          .map((movie) => {
+            return (
+              <Link href={`/movies/${movie.id}`} key={movie.id} className="grid gap-y-2">
+                <Image src={movie.poster} width={300} height={300} alt={movie.title} />
+                <h2 className="text-md w-[300px] md:text-xl font-medium">{movie.title}</h2>
+              </Link>
+            )
+          })
+        }
       </div>
     </div>
   );

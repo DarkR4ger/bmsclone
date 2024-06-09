@@ -11,7 +11,7 @@ import {
 
 import  DialogBox  from "./DialogBox";
 import prisma from "@/lib/prisma";
-import { MovieDataType } from "@/actions/addMovie";
+import { MovieDataType } from "@/actions/movies/addMovie";
 import Image from "next/image";
 import ModifyMovie from "./ModifyMovies";
 import DeleteMovies from "./DeleteMovies";
