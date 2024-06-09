@@ -19,7 +19,7 @@ import { Loader2 } from "lucide-react";
 import { useAppSelector, useAppDispatch } from "@/lib/reduxhook";
 import { setLoading } from "@/redux/loadingSlice";
 
-interface ResponseJsonData {
+export interface ResponseJsonData {
   success: boolean;
   message: string;
 }

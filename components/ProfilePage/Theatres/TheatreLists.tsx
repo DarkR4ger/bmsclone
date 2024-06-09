@@ -12,7 +12,9 @@ import {
 import TheatreDiaglog from "./TheatreDiaglog";
 import prisma from "@/lib/prisma";
 import { cn } from "@/lib/utils";
-import ModifyTheatres from "./ModifyTheatres"; import DeleteTheatres from "./DeleteTheatre";
+import ModifyTheatres from "./ModifyTheatres";
+import DeleteTheatres from "./DeleteTheatre";
+import ShowModel from "./Shows/ShowsModel";
 
 export type TheatreDataType = {
   id: string;
@@ -24,13 +26,11 @@ export type TheatreDataType = {
   userId: string;
 };
 
-export default async function TheatreLists({userId}: {
-  userId: string
-}) {
+export default async function TheatreLists({ userId }: { userId: string }) {
   const theatreData: TheatreDataType[] = await prisma.theatre.findMany({
     where: {
-      userId: userId 
-    }
+      userId: userId,
+    },
   });
 
   return (
@@ -58,14 +58,18 @@ export default async function TheatreLists({userId}: {
                 <TableCell className="">{theatre.email}</TableCell>
                 <TableCell className="">
                   <p
-                    className={cn(" w-fit px-3 py-1 capitalize rounded-full", 
-                    theatre.isActive ? 'bg-green-300 text-green-900 ' : 'bg-red-300 text-red-900')}
+                    className={cn(
+                      " w-fit px-3 py-1 capitalize rounded-full",
+                      theatre.isActive
+                        ? "bg-green-300 text-green-900 "
+                        : "bg-red-300 text-red-900",
+                    )}
                   >
-                    {theatre.isActive ? 'Accepted' : 'Pending'}
+                    {theatre.isActive ? "Accepted" : "Pending"}
                   </p>
                 </TableCell>
-                <TableCell>
-                  <ModifyTheatres 
+                <TableCell className="flex items-center gap-x-2 ">
+                  <ModifyTheatres
                     id={theatre.id}
                     name={theatre.name}
                     address={theatre.address}
@@ -75,6 +79,17 @@ export default async function TheatreLists({userId}: {
                     userId={theatre.userId}
                   />
                   <DeleteTheatres id={theatre.id} />
+                  {theatre.isActive && 
+                  <ShowModel
+                    id={theatre.id}
+                    name={theatre.name}
+                    address={theatre.address}
+                    phone={theatre.phone}
+                    email={theatre.email}
+                    isActive={theatre.isActive}
+                    userId={theatre.userId}
+                  />
+ }
                 </TableCell>
               </TableRow>
             );

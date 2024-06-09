@@ -7,8 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
+} from "@/components/ui/dialog"; import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -18,7 +17,7 @@ import { useFormState } from "react-dom";
 import { useEffect } from "react";
 import { toast } from "sonner";
 
-const initialMessage: FormState = {
+export const initialMessage: FormState = {
   success: false,
   message: "",
 };
