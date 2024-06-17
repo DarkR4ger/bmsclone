@@ -13,7 +13,8 @@ export async function middleware(req: NextRequest) {
 
   newHeaders.set("data", data);
 
-  if (pathname === "/" || pathname.startsWith("/profile") || pathname.startsWith('/movies')) {
+  if (pathname === "/" || pathname.startsWith("/profile") || pathname.startsWith('/movies')
+  || pathname.startsWith('/bookshow')) {
     if (!res.success) {
       return NextResponse.redirect(new URL("/login", origin));
     }

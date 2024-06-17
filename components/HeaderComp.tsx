@@ -36,7 +36,9 @@ const HeaderComp = () => {
       if (
         pathname === "/" ||
         pathname === "/profile" ||
-        pathname === "/admin" || pathname.startsWith('/movies')
+        pathname === "/admin" ||
+        pathname.startsWith("/movies") ||
+        pathname.startsWith("/bookshow")
       ) {
         const data = await getDataFromHeader();
         setUserDetails(data);
@@ -58,7 +60,8 @@ const HeaderComp = () => {
       <div>
         {pathname === "/" ||
         pathname === "/profile" ||
-        pathname === "/admin" || pathname.startsWith('/movies') ? (
+        pathname === "/admin" ||
+        pathname.startsWith("/movies") || pathname.startsWith('/bookshow')  ? (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Avatar

@@ -28,6 +28,7 @@ export default function ShowLists({ id }: { id: string }) {
       const res = await fetch(`api/shows/${id}`);
       const data = await res.json();
       const showsDatas: ShowDataType[] = data.data;
+      console.log(showsDatas)
       setShowsData(showsDatas);
     } catch (err) {
       toast.error("Something wrong happened");
