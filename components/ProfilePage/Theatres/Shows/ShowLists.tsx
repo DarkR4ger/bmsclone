@@ -45,7 +45,7 @@ export default function ShowLists({ id }: { id: string }) {
 
   useEffect(() => {
     getShows();
-  }, []);
+  });
 
   return (
     <section className="flex flex-col justify-center gap-y-5 mt-5">

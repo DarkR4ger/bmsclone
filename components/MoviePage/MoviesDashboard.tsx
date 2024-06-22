@@ -16,7 +16,6 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
-  CardFooter,
 } from "@/components/ui/card";
 import Link from "next/link";
 import { buttonVariants } from "../ui/button";

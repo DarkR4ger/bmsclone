@@ -14,14 +14,12 @@ import { booking } from "@/actions/booking";
 import { useEffect, useRef } from "react";
 import { useAppSelector } from "@/lib/reduxhook";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 
 export default function TransactionPage({
   checkoutSession,
 }: {
   checkoutSession: Stripe.Checkout.Session;
 }) {
-  const router = useRouter()
   const ref = useRef(false)
   const userEmail = useAppSelector((state) => state.user.email) 
   const paymentIntent = checkoutSession.payment_intent as Stripe.PaymentIntent;
@@ -47,7 +45,7 @@ export default function TransactionPage({
     if(paymentIntent.status === "succeeded"){
       getData();
     }
-  },[]);
+  });
 
   return (
     <div className="flex items-center justify-center mt-10">

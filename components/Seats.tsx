@@ -26,34 +26,21 @@ const Seats = ({
           <CardContent className="space-y-4 mt-6">
             {Array.from(Array(rows).keys()).map((seat, seatIndex) => {
               return (
-                <div key={seatIndex} className="md:flex grid grid-cols-3  gap-2 justify-between">
+                <div
+                  key={seatIndex}
+                  className="md:flex grid grid-cols-3  gap-2 justify-between"
+                >
                   {Array.from(Array(columns).keys()).map((column, index) => {
                     const seatNumber = seat * columns + column + 1;
-                    const [isSeatSelected, setIsSeatSelected] = useState(false);
-                    const handleClick = (seatNumber: number) => {
-                      if (selectedSeats.includes(seatNumber)) {
-                        setSelectedSeats(
-                          selectedSeats.filter((seat) => seat != seatNumber),
-                        );
-                      } else {
-                        setSelectedSeats([...selectedSeats, seatNumber]);
-                      }
-                      setIsSeatSelected(!isSeatSelected);
-                    };
-
-
                     return (
-                      seatNumber <= totalSeats && (
-                        <Button
-                          key={index}
-                          variant={isSeatSelected ? "default" : "outline"}
-                          className="disabled:bg-gray-300"
-                          onClick={() => handleClick(seatNumber)}
-                          disabled={bookedSeats.includes(seatNumber)}
-                        >
-                          {seatNumber}
-                        </Button>
-                      )
+                      <IndividualSeat
+                        key={index}
+                        seatNumber={seatNumber}
+                        totalSeats={totalSeats}
+                        selectedSeats={selectedSeats}
+                        setSelectedSeats={setSelectedSeats}
+                        bookedSeats={bookedSeats}
+                      />
                     );
                   })}
                 </div>
@@ -63,6 +50,44 @@ const Seats = ({
         </Card>
       </div>
     </div>
+  );
+};
+
+const IndividualSeat = ({
+  seatNumber,
+  totalSeats,
+  bookedSeats,
+  selectedSeats,
+  setSelectedSeats,
+}: {
+  seatNumber: number;
+  totalSeats: number;
+  selectedSeats: number[];
+  setSelectedSeats: Dispatch<SetStateAction<number[]>>;
+  bookedSeats: Number[];
+}) => {
+  const [isSeatSelected, setIsSeatSelected] = useState(false);
+  const handleClick = (seatNumber: number) => {
+    if (selectedSeats.includes(seatNumber)) {
+      setSelectedSeats(selectedSeats.filter((seat) => seat != seatNumber));
+    } else {
+      setSelectedSeats([...selectedSeats, seatNumber]);
+    }
+    setIsSeatSelected(!isSeatSelected);
+  };
+  return (
+    <>
+      {seatNumber <= totalSeats && (
+        <Button
+          variant={isSeatSelected ? "default" : "outline"}
+          className="disabled:bg-gray-300"
+          onClick={() => handleClick(seatNumber)}
+          disabled={bookedSeats.includes(seatNumber)}
+        >
+          {seatNumber}
+        </Button>
+      )}
+    </>
   );
 };
 

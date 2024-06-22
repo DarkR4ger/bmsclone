@@ -46,7 +46,7 @@ const HeaderComp = () => {
       }
     }
     getData();
-  }, [pathname]);
+  });
 
   return (
     <nav className="container shadow-xl py-4 flex items-center justify-between">

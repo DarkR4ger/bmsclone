@@ -26,7 +26,7 @@ export default function BookShowDashboard({
 
   useEffect(() => {
     setTotalPrice(selectedSeats.length * ticketPrice);
-  }, [selectedSeats]);
+  }, [selectedSeats, ticketPrice]);
 
   return (
     <div className="flex flex-col justify-center">
