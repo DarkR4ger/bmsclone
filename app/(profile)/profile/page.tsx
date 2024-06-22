@@ -1,3 +1,4 @@
+import BookingList from "@/components/ProfilePage/Bookings/BookingList";
 import TheatreLists from "@/components/ProfilePage/Theatres/TheatreLists";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getDataFromHeader } from "@/lib/headerdData";
@@ -14,6 +15,7 @@ const Profile = async() => {
             <TabsTrigger className="font-semibold" value="apply for theatres">Apply for Theatres</TabsTrigger>
           </TabsList>
           <TabsContent value="bookings">
+            <BookingList />
           </TabsContent>
           <TabsContent value="apply for theatres">
             <TheatreLists userId={user.id} />

@@ -2,7 +2,6 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { Separator } from "./ui/separator";
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
-import { SelectTrigger } from "@radix-ui/react-select";
 
 type SeatsProp = {
   totalSeats: number;
@@ -27,7 +26,7 @@ const Seats = ({
           <CardContent className="space-y-4 mt-6">
             {Array.from(Array(rows).keys()).map((seat, seatIndex) => {
               return (
-                <div key={seatIndex} className="flex gap-2 justify-between">
+                <div key={seatIndex} className="md:flex grid grid-cols-3  gap-2 justify-between">
                   {Array.from(Array(columns).keys()).map((column, index) => {
                     const seatNumber = seat * columns + column + 1;
                     const [isSeatSelected, setIsSeatSelected] = useState(false);
@@ -48,6 +47,7 @@ const Seats = ({
                         <Button
                           key={index}
                           variant={isSeatSelected ? "default" : "outline"}
+                          className="disabled:bg-gray-300"
                           onClick={() => handleClick(seatNumber)}
                           disabled={bookedSeats.includes(seatNumber)}
                         >

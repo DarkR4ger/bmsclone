@@ -12,7 +12,7 @@ export default async function Home() {
   const movies = await prisma.movie.findMany()
 
   return (
-    <main className="container shadow-2xl mt-5 pt-5">
+    <main className="mt-5 pt-5">
       <DashboardPage
         username={username}
         movies={movies}

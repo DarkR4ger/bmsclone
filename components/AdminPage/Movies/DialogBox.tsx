@@ -23,11 +23,7 @@ import { Button } from "@/components/ui/button";
 import { addMovie } from "@/actions/movies/addMovie";
 import FormSubmit from "@/components/FormSubmit";
 
-
 export default function DialogBox() {
-
-
-
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -39,7 +35,7 @@ export default function DialogBox() {
         <form className="grid items-center gap-y-4" action={addMovie}>
           <DialogHeader>
             <DialogTitle>Add Movie</DialogTitle>
-            <DialogDescription>Add a movie into the list</DialogDescription>
+            <DialogDescription>Add a movie into the list , use <span className="bg-red-300 px-2 py-1 rounded-full text-gray-800">movieposter.com</span> for poster upload</DialogDescription>
           </DialogHeader>
           <div className="grid gap-y-2 items-center">
             <Label htmlFor="movie-name">Movie Name</Label>

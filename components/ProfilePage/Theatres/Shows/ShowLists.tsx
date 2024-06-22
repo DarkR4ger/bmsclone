@@ -14,6 +14,9 @@ import { ShowType } from "@/actions/shows/addShows";
 import { toast } from "sonner";
 import { MovieDataType } from "@/actions/movies/addMovie";
 import DeleteShow from "./DeleteShow";
+import { useAppDispatch, useAppSelector } from "@/lib/reduxhook";
+import { setLoading } from "@/redux/loadingSlice";
+import LoaderSpinner from "@/components/LoaderSpinner";
 
 export type ShowDataType = ShowType & {
   id: string;
@@ -23,15 +26,19 @@ export type ShowDataType = ShowType & {
 
 export default function ShowLists({ id }: { id: string }) {
   const [showsData, setShowsData] = useState<ShowDataType[]>([]);
+  const isLoading = useAppSelector((state) => state.loading.loading)
+  const dispatch = useAppDispatch()
   const getShows = async () => {
+    dispatch(setLoading(true))
     try {
       const res = await fetch(`api/shows/${id}`);
       const data = await res.json();
       const showsDatas: ShowDataType[] = data.data;
-      console.log(showsDatas)
       setShowsData(showsDatas);
+      dispatch(setLoading(false))
     } catch (err) {
       toast.error("Something wrong happened");
+      dispatch(setLoading(false))
     }
   };
   console.log(showsData);
@@ -42,6 +49,7 @@ export default function ShowLists({ id }: { id: string }) {
 
   return (
     <section className="flex flex-col justify-center gap-y-5 mt-5">
+      {!isLoading ? (
       <Table>
         <TableCaption>Show Lists</TableCaption>
         <TableHeader>
@@ -78,6 +86,9 @@ export default function ShowLists({ id }: { id: string }) {
         </TableBody>
         <TableFooter></TableFooter>
       </Table>
+      ): (
+        <LoaderSpinner />
+      )}
     </section>
   );
 }

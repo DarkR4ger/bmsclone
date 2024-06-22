@@ -9,7 +9,7 @@ type BookingActionProp = {
   transactionId: string;
 }
 
-type BookingActionReturnProp = {
+export type BookingActionReturnProp = {
   success: boolean;
   message: string;
 }
@@ -33,7 +33,17 @@ export const booking = async (data: BookingActionProp): Promise<BookingActionRet
         message: 'User is not available'
       }
     }
-
+    const oldBooking = await prisma.booking.findFirst({
+      where: {
+        transactionId: data.transactionId
+      }
+    })
+    if(oldBooking){
+      return {
+        success: false,
+        message: 'Already booked'
+      }
+    }
     const newBooking = await prisma.booking.create({
       data: {
         showId: data.showId,
