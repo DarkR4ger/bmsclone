@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { MoviesDataType } from "../AdminPage/Movies/MoviesLists";
 import { Input } from "../ui/input";
 import moment from "moment";
-import { ChangeEvent, Suspense, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Label } from "../ui/label";
 import { Separator } from "../ui/separator";
@@ -126,7 +126,7 @@ export default function MovieDashboard({
                     {theatre.shows
                       .sort(
                         (a, b) =>
-                          moment(a.time, "HH:mm") - moment(b.time, "HH:mm"),
+                          (moment(a.time, "HH:mm")) as any - (moment(b.time, "HH:mm") as any),
                       )
                       .map((show) => (
                         <Link

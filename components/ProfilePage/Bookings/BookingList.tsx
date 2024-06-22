@@ -12,7 +12,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useAppSelector } from "@/lib/reduxhook";
-import { Loader2 } from "lucide-react";
 import moment from "moment";
 import Image from "next/image";
 import { useEffect, useState } from "react";

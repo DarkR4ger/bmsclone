@@ -45,7 +45,7 @@ export default function TransactionPage({
     if(paymentIntent.status === "succeeded"){
       getData();
     }
-  });
+  },[]);
 
   return (
     <div className="flex items-center justify-center mt-10">

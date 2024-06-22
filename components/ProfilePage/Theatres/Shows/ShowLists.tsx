@@ -41,11 +41,10 @@ export default function ShowLists({ id }: { id: string }) {
       dispatch(setLoading(false))
     }
   };
-  console.log(showsData);
 
   useEffect(() => {
     getShows();
-  });
+  },[]);
 
   return (
     <section className="flex flex-col justify-center gap-y-5 mt-5">
