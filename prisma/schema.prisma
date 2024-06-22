@@ -21,6 +21,7 @@ model User {
   password String
   isAdmin  Boolean   @default(false)
   Theatre  Theatre[]
+  Booking  Booking[]
 }
 
 model Movie {
@@ -48,17 +49,30 @@ model Theatre {
 }
 
 model Show {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   date        String
   time        String
   ticketPrice Int
   totalSeats  Int
-  bookedSeats Int[]    @default([])
-  movie       Movie    @relation(fields: [movieId], references: [id])
-  movieId     String   @db.ObjectId
-  theatre     Theatre  @relation(fields: [theatreId], references: [id])
-  theatreId   String   @db.ObjectId
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  bookedSeats Int[]     @default([])
+  movie       Movie     @relation(fields: [movieId], references: [id])
+  movieId     String    @db.ObjectId
+  theatre     Theatre   @relation(fields: [theatreId], references: [id])
+  theatreId   String    @db.ObjectId
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  Booking     Booking[]
+}
+
+model Booking {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  show          Show     @relation(fields: [showId], references: [id])
+  showId        String   @db.ObjectId
+  user          User     @relation(fields: [userId], references: [id])
+  userId        String   @db.ObjectId
+  seats         Int[]
+  transactionId String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
