@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import StoreProvider from "./storeProvider";
 import HeaderComp from "@/components/HeaderComp";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
         <StoreProvider>
           <HeaderComp />
           {children}
+          <Footer />
           <Toaster />
         </StoreProvider>
       </body>

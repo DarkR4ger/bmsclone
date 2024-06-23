@@ -21,11 +21,6 @@ type ViewType = "table" | "form";
 const ShowModel = ({
   id,
   name,
-  address,
-  phone,
-  email,
-  isActive,
-  userId,
 }: TheatreDataType) => {
   const [view, setView] = useState<ViewType>("table");
 
@@ -42,7 +37,7 @@ const ShowModel = ({
       <DialogTrigger asChild>
         <Button variant="outline">Shows</Button>
       </DialogTrigger>
-      <DialogContent className="sm:w-full md:max-w-5xl lg:max-w-7xl">
+      <DialogContent className="sm:w-full md:max-w-5xl lg:max-w-7xl overflow-scroll">
         <DialogHeader className="">
           <DialogTitle className="text-md md:text-xl font-semibold">
             THEATRE&#58; {name}

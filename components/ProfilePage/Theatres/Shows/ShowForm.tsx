@@ -96,7 +96,7 @@ export default function ShowForm({ id }: { id: string }) {
           <Label htmlFor="movie">Movie</Label>
           <Select name="movie" required>
             <SelectTrigger className="" id="movie">
-              <SelectValue placeholder="Select a language.." />
+              <SelectValue placeholder="Select a movie.." />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>

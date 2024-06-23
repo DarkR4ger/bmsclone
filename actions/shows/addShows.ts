@@ -31,7 +31,6 @@ export const addShows = async (prevState: FormState, formData: FormData) => {
         ...showFormData,
       },
     });
-    console.log(res)
     if (!res) {
       return {
         success: false,
