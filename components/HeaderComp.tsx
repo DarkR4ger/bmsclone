@@ -29,6 +29,7 @@ const HeaderComp = () => {
     await logout();
     dispatch(delUser());
     router.push("/login");
+    router.refresh()
   };
 
   useEffect(() => {

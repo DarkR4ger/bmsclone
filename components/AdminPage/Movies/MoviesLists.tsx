@@ -20,6 +20,8 @@ export type MoviesDataType = MovieDataType & {
   id: string;
 };
 
+export const revalidate = 0
+
 export default async function MoviesLists() {
   const moviesData: MoviesDataType[] = await prisma.movie.findMany();
 

@@ -11,19 +11,15 @@ import {
 
 import prisma from "@/lib/prisma";
 import { cn } from "@/lib/utils";
-import { TheatreDataType } from "@/components/ProfilePage/Theatres/TheatreLists";
 import TheatreAction from "./TheatreAction";
 
+export const revalidate = 0
+
 export default async function AdminTheatreLists() {
-  const theatreData: TheatreDataType[] = await prisma.theatre.findMany();
-  const userDetails = await prisma.user.findMany({
-    where: {
-      Theatre: {
-        some: {
-          userId: {},
-        },
-      },
-    },
+  const theatreData= await prisma.theatre.findMany({
+    include: {
+      owner: true
+    }
   });
 
   return (
@@ -42,7 +38,7 @@ export default async function AdminTheatreLists() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {theatreData.map((theatre, index) => {
+          {theatreData.map((theatre) => {
             return (
               <TableRow key={theatre.id} className="md:text-md sm:text-sm">
                 <TableCell className="capitalize">{theatre.name}</TableCell>
@@ -50,7 +46,7 @@ export default async function AdminTheatreLists() {
                 <TableCell className="">+91 {theatre.phone}</TableCell>
                 <TableCell className="">{theatre.email}</TableCell>
                 <TableCell className="capitalize">
-                  {userDetails[index].username}
+                  {theatre.owner.username}
                 </TableCell>
                 <TableCell className="">
                   <p
