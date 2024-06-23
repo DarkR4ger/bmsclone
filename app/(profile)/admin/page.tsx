@@ -5,7 +5,7 @@ import AdminTheatreLists from "@/components/AdminPage/Theatres/TheatreLists";
 const Admin = async () => {
   return (
     <section>
-      <h2 className="text-xl md:text-3xl font-semibold">Admin page</h2>
+      <h2 className="text-xl md:text-3xl font-semibold mb-5">Admin page</h2>
       <div>
         <Tabs defaultValue="movies" className=''>
           <TabsList className="grid w-full grid-cols-2">

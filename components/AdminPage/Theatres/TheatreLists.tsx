@@ -12,10 +12,10 @@ import {
 import prisma from "@/lib/prisma";
 import { cn } from "@/lib/utils";
 import TheatreAction from "./TheatreAction";
-
-export const revalidate = 0
+import { unstable_noStore } from "next/cache";
 
 export default async function AdminTheatreLists() {
+  unstable_noStore()
   const theatreData= await prisma.theatre.findMany({
     include: {
       owner: true

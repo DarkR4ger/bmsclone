@@ -48,10 +48,6 @@ const HeaderComp = () => {
     getData();
   },[pathname]);
 
-  useEffect(() => {
-    router.refresh();
-  },[pathname])
-
   return (
     <nav className="container shadow-xl py-4 flex items-center justify-between">
       <div>
@@ -76,7 +72,7 @@ const HeaderComp = () => {
                     <Loader2 className="animate-spin" />
                   </AvatarFallback>
                 ) : (
-                  <AvatarFallback>{user.username[0]}</AvatarFallback>
+                  <AvatarFallback>{user.username[0].toUpperCase()}</AvatarFallback>
                 )}
               </Avatar>
             </DropdownMenuTrigger>
