@@ -51,6 +51,7 @@ const LoginPage = () => {
       }
       dispatchLoading(setLoading(false));
       router.push("/");
+      router.refresh();
     } catch (err) {
       toast.error("please try again" as string, {
         id: toastId,
