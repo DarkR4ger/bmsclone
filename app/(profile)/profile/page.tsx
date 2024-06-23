@@ -7,7 +7,7 @@ const Profile = async() => {
   const user = await getDataFromHeader();
   return (
     <section>
-      <div>Hello profile page</div>
+      <h2 className="text-xl md:text-3xl mb-5 font-semibold">Profile</h2>
       <div>
         <Tabs defaultValue="bookings" className=''>
           <TabsList className="grid w-full grid-cols-2">

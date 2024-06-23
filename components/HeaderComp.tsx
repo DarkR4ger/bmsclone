@@ -29,15 +29,14 @@ const HeaderComp = () => {
     await logout();
     dispatch(delUser());
     router.push("/login");
-    router.refresh()
   };
 
   useEffect(() => {
     async function getData() {
       if (
         pathname === "/" ||
-        pathname === "/profile" ||
-        pathname === "/admin" ||
+        pathname.startsWith("/profile") ||
+        pathname.startsWith("/admin") ||
         pathname.startsWith("/movies") ||
         pathname.startsWith("/bookshow")
       ) {
@@ -48,6 +47,10 @@ const HeaderComp = () => {
     }
     getData();
   },[pathname]);
+
+  useEffect(() => {
+    router.refresh();
+  },[pathname])
 
   return (
     <nav className="container shadow-xl py-4 flex items-center justify-between">

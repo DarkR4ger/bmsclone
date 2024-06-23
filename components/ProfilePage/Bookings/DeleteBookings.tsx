@@ -18,7 +18,7 @@ export default function DeleteBookings({
   booking: PopulatedDataType;
 }) {
   const deleteBookingAction = async(data: FormData) => {
-    const toastId = toast.loading("Logging in...");
+    const toastId = toast.loading("Deleting ...");
     try{
       const {success,message} = await deleteBooking(data)
       if(success){

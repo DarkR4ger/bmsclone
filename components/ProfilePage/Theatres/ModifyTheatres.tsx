@@ -32,7 +32,6 @@ export const ModifyTheatres = ({
   address,
   phone,
   email,
-  isActive,
   userId
 }: TheatreDataType) => {
   const [formState, theatreAction] = useFormState(modifyTheatre, initialMessage);

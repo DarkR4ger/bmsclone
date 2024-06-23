@@ -44,7 +44,7 @@ const getData = async () => {
       <h2 className="text-xl md:text-3xl mb-5 font-semibold">Bookings</h2>
       <div>
         {bookings ? (
-          bookings.length > 0 &&
+          bookings.length > 0 ?
           bookings.map((booking, index) => {
             const { movie, theatre } = booking.show;
             const { show } = booking;
@@ -90,7 +90,7 @@ const getData = async () => {
                 </div>
               </Card>
             );
-          })
+          }) : (<div className="text-center mt-5">You have not booked any Shows</div>)
         ) : (
           <LoaderSpinner />
         )}
