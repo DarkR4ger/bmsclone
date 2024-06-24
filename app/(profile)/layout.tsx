@@ -4,7 +4,7 @@ export default function ProfileLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="container mt-5 shadow-2xl pt-5 min-h-screen">
+    <main className="container mt-5 shadow-2xl pt-5 pb-5 min-h-screen">
       {children}
     </main>
   );
